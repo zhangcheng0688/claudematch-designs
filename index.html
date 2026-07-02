@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="ClaudeMatch">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%23000000%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 dy=%22.15em%22 font-size=%2248%22>🔍</text></svg>">
+<title>ClaudeMatch</title>
+
+<style>
+/* ============================
+   Design Tokens — iOS Native
+   ============================ */
+:root {
+  /* Accent */
+  --accent: #007AFF;
+
+  /* Background */
+  --bg: #F2F2F7;
+  --card-bg: #FFFFFF;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.04);
+
+  /* Navigation & Tab Bar */
+  --nav-bg: rgba(242, 242, 247, 0.80);
+  --tab-bar-bg: rgba(255, 255, 255, 0.72);
+
+  /* Text */
+  --label: #000000;
+  --secondary-label: rgba(60, 60, 67, 0.60);
+  --tertiary-label: rgba(60, 60, 67, 0.30);
+
+  /* Fills */
+  --fill-secondary: rgba(120, 120, 128, 0.08);
+  --fill-tertiary: rgba(120, 120, 128, 0.04);
+  --tertiary-fill: rgba(120, 120, 128, 0.12);
+
+  /* Segmented control */
+  --segmented-bg: rgba(120, 120, 128, 0.08);
+  --segmented-active: #FFFFFF;
+
+  /* Search */
+  --search-bg: rgba(120, 120, 128, 0.08);
+
+  /* Separator */
+  --separator: rgba(60, 60, 67, 0.12);
+  --selected-bg: rgba(0, 122, 255, 0.06);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+[data-theme="dark"] {
+  --accent: #0A84FF;
+
+  --bg: #000000;
+  --card-bg: #1C1C1E;
+  --card-shadow: 0 1px 3px rgba(0,0,0,0.20);
+
+  --nav-bg: rgba(0, 0, 0, 0.64);
+  --tab-bar-bg: rgba(28, 28, 30, 0.72);
+
+  --label: #FFFFFF;
+  --secondary-label: rgba(235, 235, 245, 0.60);
+  --tertiary-label: rgba(235, 235, 245, 0.30);
+
+  --fill-secondary: rgba(120, 120, 128, 0.20);
+  --fill-tertiary: rgba(120, 120, 128, 0.12);
+  --tertiary-fill: rgba(120, 120, 128, 0.24);
+
+  --segmented-bg: rgba(120, 120, 128, 0.20);
+  --segmented-active: #636366;
+
+  --search-bg: rgba(120, 120, 128, 0.16);
+
+  --separator: rgba(84, 84, 88, 0.65);
+  --selected-bg: rgba(10, 132, 255, 0.12);
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.30);
+}
+
+/* Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, "SF Pro Text", "Helvetica Neue", "PingFang SC", "Noto Sans SC", sans-serif;
+  background: var(--bg);
+  color: var(--label);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body {
+  background: #111;
+  display: grid;
+  place-items: center;
+}
+
+/* App container — full bleed on mobile, phone frame on desktop */
+#app {
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg);
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  transition: background 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (min-width: 700px) {
+  #app {
+    width: 390px;
+    height: 844px;
+    border-radius: 44px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 0; }
+::-webkit-scrollbar-thumb { display: none; }
+
+/* Toast animation */
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Button Reset */
+button {
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active {
+  opacity: 0.7;
+}
+</style>
+</head>
+<body>
+
+<div id="root"></div>
+
+<!-- React + Babel CDN -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<!-- App modules -->
+<script type="text/babel" src="data.jsx"></script>
+<script type="text/babel" src="icons.jsx"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+
+</body>
+</html>
