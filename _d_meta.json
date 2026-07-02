@@ -1,0 +1,27 @@
+{
+  "type": "design",
+  "designSystems": [],
+  "primaryDesignSystem": null,
+  "assets": {
+    "ClaudeMatch App": {
+      "versions": [
+        {
+          "path": "index.html",
+          "createdAt": "2026-06-18T08:43:20.327Z",
+          "status": "needs-review"
+        }
+      ]
+    },
+    "index": {
+      "versions": [
+        {
+          "path": "index.html",
+          "createdAt": "2026-06-18T08:47:36.499Z",
+          "status": "approved"
+        }
+      ]
+    }
+  },
+  "createdAt": "2026-06-18T08:43:20.328Z",
+  "updatedAt": "2026-06-18T08:47:36.499Z"
+}
